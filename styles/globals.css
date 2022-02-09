@@ -1,19 +1,5 @@
 body {
-    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
-    background-size: cover;
-    animation: gradient 300s ease infinite;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+    --color-bg: #f7f5ee;
+    margin: 0;
+    background-color: var(--color-bg);
 }
