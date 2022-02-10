@@ -6,7 +6,7 @@ import { clamp } from "../helpers/math";
 
 const GridItemContainer = styled(animated.div)`
   background-color: white;
-  border-radius: 27px;
+  border-radius: 25px;
   aspect-ratio: 4 / 3;
   display: flex;
   justify-content: center;
@@ -16,23 +16,32 @@ const GridItemContainer = styled(animated.div)`
     ${(props) => (props.rowEnd ? props.rowEnd : "auto")};
   transform-style: preserve-3d;
   position: relative;
+  cursor: pointer;
+  /* overflow: hidden; */
 
   &::before {
-    content: '';
+    content: "";
     background: #e7e1cb;
     position: absolute;
     height: 100%;
     width: 100%;
-    transform: translateZ(-30px);
-    border-radius: 27px;
+    transform: translateZ(-20px);
+    transition: transform 0.3s;
+    border-radius: 25px;
+  }
+
+  &:hover {
+    &::before {
+        transform: translateZ(-50px);
+    }
   }
 `;
 
-export default function GridItem() {
+export default function GridItemCard({ children }) {
   const [xy, setXY] = useState([0, 0]);
   const [isHovering, setIsHovering] = useState(false);
 
-  const [ref, bounds] = useMeasure({scroll: true});
+  const [ref, bounds] = useMeasure({ scroll: true });
 
   let xPercentage = Math.round(xy[0] - bounds.left) / bounds.width;
   let yPercentage = Math.round(xy[1] - bounds.top) / bounds.height;
@@ -55,8 +64,8 @@ export default function GridItem() {
     y: yPercentageClamped,
   });
 
-  const xInterpolated = x.to([0, 0.5, 1], [-20, 0, 20]);
-  const yInterpolated = y.to([0, 0.5, 1], [20, 0, -20]);
+  const xInterpolated = x.to([0, 0.5, 1], [-30, 0, 30]);
+  const yInterpolated = y.to([0, 0.5, 1], [30, 0, -30]);
 
   return (
     <GridItemContainer
@@ -69,13 +78,7 @@ export default function GridItem() {
       onMouseMove={({ clientX, clientY }) => setXY([clientX, clientY])}
       onMouseLeave={() => setIsHovering(false)}
     >
-      x: {Math.round(xy[0] - bounds.left)}px
-      <br></br>
-      Y: {Math.round(xy[1] - bounds.top)}px
-      <br></br>
-      percentageX: {Math.round(xy[0] - bounds.left) / bounds.width}
-      <br></br>
-      percentageY: {Math.round(xy[1] - bounds.top) / bounds.height}
+      {children}
     </GridItemContainer>
   );
 }
