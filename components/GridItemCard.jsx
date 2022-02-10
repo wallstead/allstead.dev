@@ -25,7 +25,7 @@ const GridItemContainer = styled(animated.div)`
     position: absolute;
     height: 100%;
     width: 100%;
-    transform: translateZ(-20px);
+    transform: translateZ(-30px);
     transition: transform 0.3s;
     border-radius: 25px;
   }

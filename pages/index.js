@@ -2,6 +2,11 @@ import Head from "next/head";
 import styled from "styled-components";
 import GridItemCard from "../components/GridItemCard";
 import breakpoints from "../helpers/breakpoints";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons'
+
+
+
 
 const Grid = styled.main`
   display: grid;
@@ -92,18 +97,31 @@ const NameTagIntroText = styled.span`
 `;
 
 const Link = styled.a`
-  color: ${props => props.brand == "siteally" ? 'rgb(89, 125, 227)' : '#1789e4'};
+  --link-color: ${(props) => {
+    if (props.brand == "siteally") {
+      return "rgb(89, 125, 227)";
+    } else if (props.brand == "noble") {
+      return "rgb(220, 58, 38)";
+    } else if (props.brand == "unr") {
+      return "#041e42";
+    } else {
+      return "#1789e4"
+    }
+  }};
+
+  color: var(--link-color);
   text-decoration: none;
   position: relative;
+  display: inline-flex;
 
   &::after {
     position: absolute;
     top: 100%;
     left: 0;
-    content: '';
+    content: "";
     height: 2px;
     width: 100%;
-    background-color: ${props => props.brand == "siteally" ? 'rgb(89, 125, 227)' : '#1789e4'};
+    background-color: var(--link-color);
     transform-origin: left;
     transition: transform 0.3s;
     transform: scaleX(0);
@@ -115,7 +133,11 @@ const Link = styled.a`
     }
     /* text-decoration: underline; */
   }
-  
+
+  svg {
+    width: 0.95em;
+    margin-left: 0.3em;
+  }
 `;
 
 export default function Home() {
@@ -148,17 +170,29 @@ export default function Home() {
         <GridItem columnStart={2} columnEnd={4} rowStart={1} rowEnd={2}>
           <LargeText>
             I like coding and creating things. Check out my{" "}
-            <Link href="https://github.com/wallstead">Personal GitHub</Link> to see
-            some of my work.
+            <Link href="https://github.com/wallstead">Personal GitHub <FontAwesomeIcon icon={faSquareArrowUpRight} /></Link> to
+            see some of my work.
+          </LargeText>
+        </GridItem>
+        <GridItem columnStart={2} columnEnd={4}>
+          <LargeText>
+            I&lsquo;ve been working as a Web Developer at <Link href="https://noblestudios.com/" brand="noble">Noble Studios <FontAwesomeIcon icon={faSquareArrowUpRight} /></Link> in Reno, NV
+            since May of 2018. I get to work on some really cool websites. I
+            graduated in May of 2019 with a bachelors in Computer Science &
+            Engineering from the <Link href="https://noblestudios.com/" brand="unr">University of Nevada, Reno <FontAwesomeIcon icon={faSquareArrowUpRight} /></Link>.
           </LargeText>
         </GridItem>
         <GridItem columnStart={2} columnEnd={4}>
           <LargeText>
             My passion is creating things that people use and love. I'm
             currently working on an accessibility testing service called{" "}
-            <Link href="https://siteally.com/" brand="siteally">Siteally</Link>.
+            <Link href="https://siteally.com/" brand="siteally">
+              Siteally <FontAwesomeIcon icon={faSquareArrowUpRight} />
+            </Link>
+            .
           </LargeText>
         </GridItem>
+        
       </Grid>
     </>
   );
