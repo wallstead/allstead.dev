@@ -50,8 +50,8 @@ export default function GridItemCard({ children }) {
   let yPercentageClamped = clamp(yPercentage, 0, 1);
 
   if (!isHovering) {
-    xPercentageClamped = 0.5;
-    yPercentageClamped = 0.5;
+    xPercentageClamped = 0.8;
+    yPercentageClamped = 0.8;
   }
 
   const { x } = useSpring({

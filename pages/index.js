@@ -21,18 +21,15 @@ const Grid = styled.main`
 `;
 
 const GridItem = styled.div`
-  aspect-ratio: 4 / 3;
-  display: flex;
   grid-column: ${(props) => (props.columnStart ? props.columnStart : "auto")} /
     ${(props) => (props.columnEnd ? props.columnEnd : "auto")};
   grid-row: ${(props) => (props.rowStart ? props.rowStart : "auto")} /
     ${(props) => (props.rowEnd ? props.rowEnd : "auto")};
 `;
 
-
 const MyName = styled.span`
   color: #1789e4;
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Permanent Marker", cursive;
   font-size: 4.5rem;
   letter-spacing: 0.1rem;
   display: flex;
@@ -85,8 +82,40 @@ const NameTagHello = styled.span`
   font-weight: 900;
 `;
 
+const LargeText = styled.p`
+  font-family: "Open Sans", sans-serif;
+  font-size: 2rem;
+`;
+
 const NameTagIntroText = styled.span`
   display: block;
+`;
+
+const Link = styled.a`
+  color: ${props => props.brand == "siteally" ? 'rgb(89, 125, 227)' : '#1789e4'};
+  text-decoration: none;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    content: '';
+    height: 2px;
+    width: 100%;
+    background-color: ${props => props.brand == "siteally" ? 'rgb(89, 125, 227)' : '#1789e4'};
+    transform-origin: left;
+    transition: transform 0.3s;
+    transform: scaleX(0);
+  }
+
+  &:hover {
+    &::after {
+      transform: scaleX(1);
+    }
+    /* text-decoration: underline; */
+  }
+  
 `;
 
 export default function Home() {
@@ -111,12 +140,24 @@ export default function Home() {
               <NameTagHello>Hello</NameTagHello>
               <NameTagIntroText>my name is</NameTagIntroText>
             </NameTagTop>
-            <NameTagBottom><MyName>Willis</MyName></NameTagBottom>
-            
+            <NameTagBottom>
+              <MyName>Willis</MyName>
+            </NameTagBottom>
           </NameTagContainer>
         </GridItemCard>
+        <GridItem columnStart={2} columnEnd={4} rowStart={1} rowEnd={2}>
+          <LargeText>
+            I like coding and creating things. Check out my{" "}
+            <Link href="https://github.com/wallstead">Personal GitHub</Link> to see
+            some of my work.
+          </LargeText>
+        </GridItem>
         <GridItem columnStart={2} columnEnd={4}>
-          
+          <LargeText>
+            My passion is creating things that people use and love. I'm
+            currently working on an accessibility testing service called{" "}
+            <Link href="https://siteally.com/" brand="siteally">Siteally</Link>.
+          </LargeText>
         </GridItem>
       </Grid>
     </>
