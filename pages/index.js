@@ -2,15 +2,13 @@ import Head from "next/head";
 import styled from "styled-components";
 import GridItemCard from "../components/GridItemCard";
 import breakpoints from "../helpers/breakpoints";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons'
-
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
+import TimeAgo from 'react-timeago'
 
 const Grid = styled.main`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 20px;
   padding: 20px;
 
@@ -21,7 +19,7 @@ const Grid = styled.main`
   }
 
   ${breakpoints.large} {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
   }
 `;
 
@@ -90,6 +88,12 @@ const NameTagHello = styled.span`
 const LargeText = styled.p`
   font-family: "Open Sans", sans-serif;
   font-size: 2rem;
+  color: #252525;
+  margin-bottom: 50px;
+  
+  &::selection, *::selection {
+    background-color: #e7e1cb;
+  }
 `;
 
 const NameTagIntroText = styled.span`
@@ -104,8 +108,10 @@ const Link = styled.a`
       return "rgb(220, 58, 38)";
     } else if (props.brand == "unr") {
       return "#041e42";
+    } else if (props.brand == "github") {
+      return "black";
     } else {
-      return "#1789e4"
+      return "#1789e4";
     }
   }};
 
@@ -113,13 +119,14 @@ const Link = styled.a`
   text-decoration: none;
   position: relative;
   display: inline-flex;
+  font-weight: 700;
 
   &::after {
     position: absolute;
-    top: 100%;
+    top: calc(100% - 3px);
     left: 0;
     content: "";
-    height: 2px;
+    height: 3px;
     width: 100%;
     background-color: var(--link-color);
     transform-origin: left;
@@ -131,12 +138,61 @@ const Link = styled.a`
     &::after {
       transform: scaleX(1);
     }
-    /* text-decoration: underline; */
   }
 
   svg {
     width: 0.95em;
     margin-left: 0.3em;
+    margin-right: 0.1em;
+  }
+`;
+
+const MoreInfoText = styled.span`
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  cursor: help;
+
+  // underline dots
+  &::before {
+    position: absolute;
+    top: calc(100% - 3px);
+    left: 0;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 250 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="gray"/></svg>');
+    background-repeat: repeat-x;
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+
+  // tooltip
+  time {
+    padding: 5px 15px;
+    position: absolute;
+    bottom: 100%;
+    max-width: 100%;
+    background: white;
+    transform-origin: bottom;
+    transition: transform 0.3s, opacity 0.3s;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scale(0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 700;
+    box-shadow: 0 4px 0 #e7e1cb;
+    pointer-events: none;
+  }
+
+  &:hover {
+    time {
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 `;
 
@@ -167,22 +223,30 @@ export default function Home() {
             </NameTagBottom>
           </NameTagContainer>
         </GridItemCard>
-        <GridItem columnStart={2} columnEnd={4} rowStart={1} rowEnd={2}>
+        <GridItem columnStart={2} columnEnd={3}>
           <LargeText>
             I like coding and creating things. Check out my{" "}
-            <Link href="https://github.com/wallstead">Personal GitHub <FontAwesomeIcon icon={faSquareArrowUpRight} /></Link> to
-            see some of my work.
+            <Link href="https://github.com/wallstead" brand="github">
+              GitHub <FontAwesomeIcon icon={faSquareArrowUpRight} />
+            </Link>{" "}
+            to see some of my work.
           </LargeText>
-        </GridItem>
-        <GridItem columnStart={2} columnEnd={4}>
           <LargeText>
-            I&lsquo;ve been working as a Web Developer at <Link href="https://noblestudios.com/" brand="noble">Noble Studios <FontAwesomeIcon icon={faSquareArrowUpRight} /></Link> in Reno, NV
-            since May of 2018. I get to work on some really cool websites. I
-            graduated in May of 2019 with a bachelors in Computer Science &
-            Engineering from the <Link href="https://noblestudios.com/" brand="unr">University of Nevada, Reno <FontAwesomeIcon icon={faSquareArrowUpRight} /></Link>.
+            I&lsquo;ve been working as a 🧑‍💻 <em>Web Developer</em> at{" "}
+            <Link href="https://noblestudios.com/" brand="noble">
+              Noble Studios <FontAwesomeIcon icon={faSquareArrowUpRight} />
+            </Link>{" "}
+            in Reno, NV since <MoreInfoText><TimeAgo date='May 1, 2018' />May of 2018</MoreInfoText>. While at Noble, I&lsquo;ve <strong>led frontend development</strong> for some seriously cool websites.
           </LargeText>
-        </GridItem>
-        <GridItem columnStart={2} columnEnd={4}>
+          <LargeText>
+            I graduated in <MoreInfoText><TimeAgo date='May 1, 2019' />May of 2019</MoreInfoText> with a{" "}
+            <em>B.S. in Computer Science &amp; Engineering</em> from the{" "}
+            <Link href="https://www.unr.edu/cse" brand="unr">
+              University of Nevada, Reno{" "}
+              <FontAwesomeIcon icon={faSquareArrowUpRight} />
+            </Link>
+            .
+          </LargeText>
           <LargeText>
             My passion is creating things that people use and love. I'm
             currently working on an accessibility testing service called{" "}
@@ -192,7 +256,6 @@ export default function Home() {
             .
           </LargeText>
         </GridItem>
-        
       </Grid>
     </>
   );
