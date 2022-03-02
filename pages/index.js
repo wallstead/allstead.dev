@@ -1,10 +1,12 @@
 import Head from "next/head";
 import styled from "styled-components";
 import GridItemCard from "../components/GridItemCard";
+import { useSpring, animated } from "react-spring";
 import breakpoints from "../helpers/breakpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 import TimeAgo from 'react-timeago'
+import useSimulatedScroll from "../helpers/simulatedScroll";
 
 const Grid = styled.main`
   display: grid;
@@ -96,8 +98,31 @@ const LargeText = styled.p`
   }
 `;
 
+
+
 const NameTagIntroText = styled.span`
   display: block;
+`;
+
+const ComputerContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 5px solid #252525;
+  border-radius: 25px;
+  z-index: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+`;
+
+const ComputerScreen = styled.div`
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  width: 100%;
+  display: block;
+  overflow-y: scroll;
 `;
 
 const Link = styled.a`
@@ -197,6 +222,11 @@ const MoreInfoText = styled.span`
 `;
 
 export default function Home() {
+
+  const tnRef = useSimulatedScroll();
+  const ltvaRef = useSimulatedScroll();
+  const dcRef = useSimulatedScroll();
+
   return (
     <>
       <Head>
@@ -204,7 +234,7 @@ export default function Home() {
         <meta name="description" content="Web Developer from Reno, NV." />
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;family=Permanent+Marker&amp;family=Work+Sans:wght@300;900&amp;display=swap"
           rel="stylesheet"
@@ -212,7 +242,7 @@ export default function Home() {
       </Head>
 
       <Grid>
-        <GridItemCard>
+        <GridItemCard rotation="rb">
           <NameTagContainer>
             <NameTagTop>
               <NameTagHello>Hello</NameTagHello>
@@ -256,6 +286,31 @@ export default function Home() {
             .
           </LargeText>
         </GridItem>
+        
+        <div>
+          <GridItemCard rotation="lb">
+            <ComputerContainer>
+              <ComputerScreen ref={tnRef}>
+                <img src="tn.jpg" />
+              </ComputerScreen>
+            </ComputerContainer>
+          </GridItemCard>
+          <GridItemCard rotation="lb">
+            <ComputerContainer>
+              <ComputerScreen ref={ltvaRef}>
+                <img src="ltva.jpg" />
+              </ComputerScreen>
+            </ComputerContainer>
+          </GridItemCard>
+          <GridItemCard rotation="lb">
+            <ComputerContainer>
+              <ComputerScreen ref={dcRef}>
+                <img src="dc.jpg" />
+              </ComputerScreen>
+            </ComputerContainer>
+          </GridItemCard>
+        </div>
+        
       </Grid>
     </>
   );

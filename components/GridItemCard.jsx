@@ -17,6 +17,7 @@ const GridItemContainer = styled(animated.div)`
   transform-style: preserve-3d;
   position: relative;
   cursor: pointer;
+  margin-bottom: 50px;
   /* overflow: hidden; */
 
   &::before {
@@ -32,12 +33,12 @@ const GridItemContainer = styled(animated.div)`
 
   &:hover {
     &::before {
-        transform: translateZ(-50px);
+      transform: translateZ(-50px);
     }
   }
 `;
 
-export default function GridItemCard({ children }) {
+export default function GridItemCard(props) {
   const [xy, setXY] = useState([0, 0]);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -50,8 +51,28 @@ export default function GridItemCard({ children }) {
   let yPercentageClamped = clamp(yPercentage, 0, 1);
 
   if (!isHovering) {
-    xPercentageClamped = 0.8;
-    yPercentageClamped = 0.8;
+    if (props.rotation) {
+      if (props.rotation == "lt") {
+        // top left
+        xPercentageClamped = 0.2;
+        yPercentageClamped = 0.2;
+      } else if (props.rotation == "lr") {
+        // top right
+        xPercentageClamped = 0.8;
+        yPercentageClamped = 0.2;
+      } else if (props.rotation == "lb") {
+        // bottom left
+        xPercentageClamped = 0.2;
+        yPercentageClamped = 0.8;
+      } else if (props.rotation == "rb") {
+        // bottom right
+        xPercentageClamped = 0.8;
+        yPercentageClamped = 0.8;
+      }
+    } else {
+      xPercentageClamped = 0.5;
+      yPercentageClamped = 0.5;
+    }
   }
 
   const { x } = useSpring({
@@ -78,7 +99,7 @@ export default function GridItemCard({ children }) {
       onMouseMove={({ clientX, clientY }) => setXY([clientX, clientY])}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {children}
+      {props.children}
     </GridItemContainer>
   );
 }
