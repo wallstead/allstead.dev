@@ -98,8 +98,6 @@ const LargeText = styled.p`
   }
 `;
 
-
-
 const NameTagIntroText = styled.span`
   display: block;
 `;
