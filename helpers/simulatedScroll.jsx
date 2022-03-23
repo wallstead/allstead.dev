@@ -27,17 +27,18 @@ export default function useSimulatedScroll() {
       }
 
       const startBaseAnimation = () => {
+        api.stop();
         api.start({
           from: { y: ref.current.scrollTop },
           to: [...generateSwipePositions(), {y: 0}], // array of items like {y: 20}
           config: { mass: 1, tension: 150, friction: 80 },
           loop: true,
+          delay: 5000,
           onChange: (_, ctrl) => {
             ref.current.scroll(0, ctrl.get().y);
           },
         });
       }
-
 
       // Trigger scrolling to all scroll positions in a chain
       startBaseAnimation();
@@ -59,7 +60,6 @@ export default function useSimulatedScroll() {
           },
           onRest: () => {
             if (!isHovered) {
-              api.stop();
               startBaseAnimation();
               console.log('resting')
             }

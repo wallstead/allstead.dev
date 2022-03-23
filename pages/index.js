@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
 import GridItemCard from "../components/GridItemCard";
-import { useSpring, animated } from "react-spring";
 import breakpoints from "../helpers/breakpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
