@@ -44,12 +44,15 @@ export default function GridItemCard(props) {
 
   const [ref, bounds] = useMeasure({ scroll: true });
 
+  // Get x and y percentages of mouse in bounds of this component
   let xPercentage = Math.round(xy[0] - bounds.left) / bounds.width;
   let yPercentage = Math.round(xy[1] - bounds.top) / bounds.height;
 
+  // To avoid weird effects, ignore values outside range of 0 and 1
   let xPercentageClamped = clamp(xPercentage, 0, 1);
   let yPercentageClamped = clamp(yPercentage, 0, 1);
 
+  // Apply default rotations if not hovering
   if (!isHovering) {
     if (props.rotation) {
       if (props.rotation == "lt") {
@@ -85,6 +88,7 @@ export default function GridItemCard(props) {
     y: yPercentageClamped,
   });
 
+  // Interpolate percentages to degrees of rotation
   const xInterpolated = x.to([0, 0.5, 1], [-30, 0, 30]);
   const yInterpolated = y.to([0, 0.5, 1], [30, 0, -30]);
 

@@ -5,7 +5,9 @@ import breakpoints from "../helpers/breakpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
 import TimeAgo from 'react-timeago'
-import useSimulatedScroll from "../helpers/simulatedScroll";
+import NameTag from "../components/NameTag";
+import MiniPuter from "../components/MiniPuter";
+import MoreInfoText from "../components/MoreInfoText";
 
 const Grid = styled.main`
   display: grid;
@@ -31,61 +33,6 @@ const GridItem = styled.div`
     ${(props) => (props.rowEnd ? props.rowEnd : "auto")};
 `;
 
-const MyName = styled.span`
-  color: #1789e4;
-  font-family: "Permanent Marker", cursive;
-  font-size: 4.5rem;
-  letter-spacing: 0.1rem;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-`;
-
-const NameTagContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border: 5px solid #de311a;
-  border-radius: 25px;
-  z-index: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const NameTagTop = styled.div`
-  color: white;
-  font-family: "Open Sans", sans-serif;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: #de311a;
-  padding: 10px 15px;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const NameTagBottom = styled.div`
-  color: white;
-  font-family: "Open Sans", sans-serif;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-`;
-
-const NameTagHello = styled.span`
-  font-family: "Work Sans", sans-serif;
-  line-height: 1.7rem;
-  letter-spacing: 0.1rem;
-  display: block;
-  text-transform: uppercase;
-  font-size: 2rem;
-  font-weight: 900;
-`;
-
 const LargeText = styled.p`
   font-family: "Open Sans", sans-serif;
   font-size: 2rem;
@@ -97,30 +44,6 @@ const LargeText = styled.p`
   }
 `;
 
-const NameTagIntroText = styled.span`
-  display: block;
-`;
-
-const ComputerContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  border: 5px solid #252525;
-  border-radius: 25px;
-  z-index: 1;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-`;
-
-const ComputerScreen = styled.div`
-  color: white;
-  font-family: "Open Sans", sans-serif;
-  width: 100%;
-  display: block;
-  overflow-y: scroll;
-`;
 
 const Link = styled.a`
   --link-color: ${(props) => {
@@ -169,60 +92,7 @@ const Link = styled.a`
   }
 `;
 
-const MoreInfoText = styled.span`
-  position: relative;
-  display: inline-flex;
-  justify-content: center;
-  cursor: help;
-
-  // underline dots
-  &::before {
-    position: absolute;
-    top: calc(100% - 3px);
-    left: 0;
-    content: "";
-    height: 3px;
-    width: 100%;
-    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 250 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="gray"/></svg>');
-    background-repeat: repeat-x;
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-
-  // tooltip
-  time {
-    padding: 5px 15px;
-    position: absolute;
-    bottom: 100%;
-    max-width: 100%;
-    background: white;
-    transform-origin: bottom;
-    transition: transform 0.3s, opacity 0.3s;
-    border-radius: 10px;
-    opacity: 0;
-    transform: scale(0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    box-shadow: 0 4px 0 #e7e1cb;
-    pointer-events: none;
-  }
-
-  &:hover {
-    time {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-`;
-
 export default function Home() {
-
-  const tnRef = useSimulatedScroll();
-  const ltvaRef = useSimulatedScroll();
-  const dcRef = useSimulatedScroll();
 
   return (
     <>
@@ -230,25 +100,11 @@ export default function Home() {
         <title>Willis Allstead</title>
         <meta name="description" content="Web Developer from Reno, NV." />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;family=Permanent+Marker&amp;family=Work+Sans:wght@300;900&amp;display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
       <Grid>
         <GridItemCard rotation="rb">
-          <NameTagContainer>
-            <NameTagTop>
-              <NameTagHello>Hello</NameTagHello>
-              <NameTagIntroText>my name is</NameTagIntroText>
-            </NameTagTop>
-            <NameTagBottom>
-              <MyName>Willis</MyName>
-            </NameTagBottom>
-          </NameTagContainer>
+          <NameTag />
         </GridItemCard>
         <GridItem columnStart={2} columnEnd={3}>
           <LargeText>
@@ -275,7 +131,7 @@ export default function Home() {
             .
           </LargeText>
           <LargeText>
-            My passion is creating things that people use and love. I'm
+            My passion is creating things that people use and love. I&lsquo;m
             currently working on an accessibility testing service called{" "}
             <Link href="https://siteally.com/" brand="siteally">
               Siteally <FontAwesomeIcon icon={faSquareArrowUpRight} />
@@ -286,28 +142,15 @@ export default function Home() {
         
         <div>
           <GridItemCard rotation="lb">
-            <ComputerContainer>
-              <ComputerScreen ref={tnRef}>
-                <img src="tn.jpg" />
-              </ComputerScreen>
-            </ComputerContainer>
+            <MiniPuter screenFileName="ltva" screenHeight={3608} alt="Tahoe South Site" />
           </GridItemCard>
           <GridItemCard rotation="lb">
-            <ComputerContainer>
-              <ComputerScreen ref={ltvaRef}>
-                <img src="ltva.jpg" />
-              </ComputerScreen>
-            </ComputerContainer>
+            <MiniPuter screenFileName="tn" screenHeight={4088} alt="Travel Nevada Site" />
           </GridItemCard>
           <GridItemCard rotation="lb">
-            <ComputerContainer>
-              <ComputerScreen ref={dcRef}>
-                <img src="dc.jpg" />
-              </ComputerScreen>
-            </ComputerContainer>
+            <MiniPuter screenFileName="dc" screenHeight={6919} alt="Duncan Channon Site" />
           </GridItemCard>
         </div>
-        
       </Grid>
     </>
   );

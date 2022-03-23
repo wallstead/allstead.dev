@@ -8,8 +8,6 @@ export default function useSimulatedScroll() {
 
   useEffect(() => {
     if (ref.current) {
-
-
       let isHovered = false;
       
       const generateSwipePositions = (startY = 0) => {
