@@ -4,46 +4,67 @@ import GridItemCard from "../components/GridItemCard";
 import breakpoints from "../helpers/breakpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
-import TimeAgo from 'react-timeago'
+import TimeAgo from "react-timeago";
 import NameTag from "../components/NameTag";
 import MiniPuter from "../components/MiniPuter";
 import MoreInfoText from "../components/MoreInfoText";
 
-const Grid = styled.main`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  padding: 20px;
+const Container = styled.main`
+  display: flex;
+  flex-direction: column;
 
-  ${breakpoints.medium} {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px;
-    padding: 40px;
-  }
-
-  ${breakpoints.large} {
-    grid-template-columns: 1fr 2fr 1fr;
+  ${breakpoints.small} {
+    flex-direction: row;
   }
 `;
 
-const GridItem = styled.div`
-  grid-column: ${(props) => (props.columnStart ? props.columnStart : "auto")} /
-    ${(props) => (props.columnEnd ? props.columnEnd : "auto")};
-  grid-row: ${(props) => (props.rowStart ? props.rowStart : "auto")} /
-    ${(props) => (props.rowEnd ? props.rowEnd : "auto")};
+const IntroArea = styled.div`
+  padding: 40px 20px 0 20px;
+
+  ${breakpoints.small} {
+    padding: 40px;
+  }
+`;
+
+const StickyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+
+  ${breakpoints.small} {
+    position: sticky;
+    top: 40px;
+  }
+`;
+
+const ContentArea = styled.div`
+  padding: 20px;
+
+  ${breakpoints.small} {
+    padding: 40px 40px 40px 0;
+  }
 `;
 
 const LargeText = styled.p`
   font-family: "Open Sans", sans-serif;
-  font-size: 2rem;
+  font-size: 1.35rem;
   color: #252525;
-  margin-bottom: 50px;
-  
-  &::selection, *::selection {
+  margin-bottom: 30px;
+
+  ${breakpoints.small} {
+    font-size: 1.5rem;
+    margin-bottom: 35px;
+  }
+
+  ${breakpoints.medium} {
+    font-size: 1.75rem;
+    margin-bottom: 50px;
+  }
+
+  &::selection,
+  *::selection {
     background-color: #e7e1cb;
   }
 `;
-
 
 const Link = styled.a`
   --link-color: ${(props) => {
@@ -92,8 +113,16 @@ const Link = styled.a`
   }
 `;
 
-export default function Home() {
+const RecentWork = styled.div`
+  background-color: #efebdd;
+  padding: 40px;
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+`;
 
+export default function Home() {
   return (
     <>
       <Head>
@@ -102,11 +131,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Grid>
-        <GridItemCard rotation="rb">
-          <NameTag />
-        </GridItemCard>
-        <GridItem columnStart={2} columnEnd={3}>
+      <Container>
+        <IntroArea>
+          <StickyContainer>
+            <GridItemCard rotation="rb">
+              <NameTag />
+            </GridItemCard>
+          </StickyContainer>
+        </IntroArea>
+
+        <ContentArea>
           <LargeText>
             I like coding and creating things. Check out my{" "}
             <Link href="https://github.com/wallstead" brand="github">
@@ -119,11 +153,22 @@ export default function Home() {
             <Link href="https://noblestudios.com/" brand="noble">
               Noble Studios <FontAwesomeIcon icon={faSquareArrowUpRight} />
             </Link>{" "}
-            in Reno, NV since <MoreInfoText><TimeAgo date='May 1, 2018' />May of 2018</MoreInfoText>. While at Noble, I&lsquo;ve <strong>led frontend development</strong> for some seriously cool websites.
+            in Reno, NV since{" "}
+            <MoreInfoText>
+              <TimeAgo date="May 1, 2018" />
+              May of 2018
+            </MoreInfoText>
+            . While at Noble, I&lsquo;ve{" "}
+            <strong>led frontend development</strong> for some seriously cool
+            websites.
           </LargeText>
           <LargeText>
-            I graduated in <MoreInfoText><TimeAgo date='May 1, 2019' />May of 2019</MoreInfoText> with a{" "}
-            <em>B.S. in Computer Science &amp; Engineering</em> from the{" "}
+            I graduated in{" "}
+            <MoreInfoText>
+              <TimeAgo date="May 1, 2019" />
+              May of 2019
+            </MoreInfoText>{" "}
+            with a <em>B.S. in Computer Science &amp; Engineering</em> from the{" "}
             <Link href="https://www.unr.edu/cse" brand="unr">
               University of Nevada, Reno{" "}
               <FontAwesomeIcon icon={faSquareArrowUpRight} />
@@ -138,20 +183,36 @@ export default function Home() {
             </Link>
             .
           </LargeText>
-        </GridItem>
-        
-        <div>
-          <GridItemCard rotation="lb">
-            <MiniPuter screenFileName="ltva" screenHeight={3608} alt="Tahoe South Site" />
-          </GridItemCard>
-          <GridItemCard rotation="lb">
-            <MiniPuter screenFileName="tn" screenHeight={4088} alt="Travel Nevada Site" />
-          </GridItemCard>
-          <GridItemCard rotation="lb">
-            <MiniPuter screenFileName="dc" screenHeight={6919} alt="Duncan Channon Site" />
-          </GridItemCard>
-        </div>
-      </Grid>
+          <RecentWork>
+            <GridItemCard rotation="rb">
+              <MiniPuter
+                screenFileName="ltva"
+                screenHeight={3608}
+                alt="Tahoe South Site"
+              />
+            </GridItemCard>
+            <GridItemCard rotation="lb">
+              <MiniPuter
+                screenFileName="tn"
+                screenHeight={4088}
+                alt="Travel Nevada Site"
+              />
+            </GridItemCard>
+            <GridItemCard rotation="rb">
+              <MiniPuter
+                screenFileName="dc"
+                screenHeight={6919}
+                alt="Duncan Channon Site"
+              />
+            </GridItemCard>
+          </RecentWork>
+        </ContentArea>
+
+        {/* <div>
+          
+          
+        </div> */}
+      </Container>
     </>
   );
 }

@@ -17,8 +17,8 @@ const GridItemContainer = styled(animated.div)`
   transform-style: preserve-3d;
   position: relative;
   cursor: pointer;
-  margin-bottom: 50px;
-  /* overflow: hidden; */
+  margin-bottom: 40px;
+  width: 300px;
 
   &::before {
     content: "";

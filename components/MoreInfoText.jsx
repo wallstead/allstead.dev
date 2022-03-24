@@ -52,7 +52,6 @@ const MoreInfoTextContainer = styled.span`
 
 
 export default function MoreInfoText(props) {
-
   return (
     <MoreInfoTextContainer>{props.children}</MoreInfoTextContainer>
   );
