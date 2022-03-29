@@ -31,7 +31,9 @@ export default function MiniPuter(props) {
   return (
     <ComputerContainer>
         <ComputerScreen ref={scrollRef}>
+          <a href={props.link}>
             <Image src={`/${props.screenFileName}.jpeg`} loading="eager" alt={props.alt} width={1000} height={props.screenHeight} layout="responsive" placeholder="blur" blurDataURL={`/${props.screenFileName}-thumb.jpeg`} />
+          </a>
         </ComputerScreen>
     </ComputerContainer>
   );

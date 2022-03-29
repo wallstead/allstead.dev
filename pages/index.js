@@ -204,6 +204,7 @@ export default function Home() {
                   screenFileName="ltva"
                   screenHeight={3608}
                   alt="Tahoe South Site"
+                  link="https://tahoesouth.com"
                 />
               </HoverCard>
             </div>
@@ -215,6 +216,7 @@ export default function Home() {
                   screenFileName="tn"
                   screenHeight={4088}
                   alt="Travel Nevada Site"
+                  link="https://travelnevada.com"
                 />
               </HoverCard>
             </div>
@@ -226,6 +228,7 @@ export default function Home() {
                   screenFileName="dc"
                   screenHeight={6919}
                   alt="Duncan Channon Site"
+                  link="https://duncanchannon.com"
                 />
               </HoverCard>
             </div>
