@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styled from "styled-components";
-import GridItemCard from "../components/GridItemCard";
+import HoverCard from "../components/HoverCard";
 import breakpoints from "../helpers/breakpoints";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareArrowUpRight } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,7 @@ import TimeAgo from "react-timeago";
 import NameTag from "../components/NameTag";
 import MiniPuter from "../components/MiniPuter";
 import MoreInfoText from "../components/MoreInfoText";
+import WorkSlider from "../components/WorkSlider";
 
 const Container = styled.main`
   display: flex;
@@ -37,10 +38,23 @@ const StickyContainer = styled.div`
 `;
 
 const ContentArea = styled.div`
-  padding: 20px;
+  padding: 40px 20px 20px;
+  max-width: 1100px;
 
   ${breakpoints.small} {
     padding: 40px 40px 40px 0;
+  }
+
+  & > * {
+    margin-bottom: 30px;
+
+    ${breakpoints.small} {
+      margin-bottom: 35px;
+    }
+
+    ${breakpoints.medium} {
+      margin-bottom: 40px;
+    }
   }
 `;
 
@@ -48,21 +62,36 @@ const LargeText = styled.p`
   font-family: "Open Sans", sans-serif;
   font-size: 1.35rem;
   color: #252525;
-  margin-bottom: 30px;
 
   ${breakpoints.small} {
     font-size: 1.5rem;
-    margin-bottom: 35px;
   }
 
   ${breakpoints.medium} {
     font-size: 1.75rem;
-    margin-bottom: 50px;
   }
 
   &::selection,
   *::selection {
     background-color: #e7e1cb;
+  }
+`;
+
+const SiteName = styled.p`
+  font-family: "Work Sans", sans-serif;
+  font-size: 1.35rem;
+  color: #252525;
+  user-select: none;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 10px;
+
+  ${breakpoints.small} {
+    font-size: 1.5rem;
+  }
+
+  ${breakpoints.medium} {
+    font-size: 1.75rem;
   }
 `;
 
@@ -76,6 +105,8 @@ const Link = styled.a`
       return "#041e42";
     } else if (props.brand == "github") {
       return "black";
+    } else if (props.brand == "characterstrong") {
+      return "#3bd36d";
     } else {
       return "#1789e4";
     }
@@ -86,6 +117,7 @@ const Link = styled.a`
   position: relative;
   display: inline-flex;
   font-weight: 700;
+  align-items: center;
 
   &::after {
     position: absolute;
@@ -113,15 +145,6 @@ const Link = styled.a`
   }
 `;
 
-const RecentWork = styled.div`
-  background-color: #efebdd;
-  padding: 40px;
-  border-radius: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-items: center;
-`;
-
 export default function Home() {
   return (
     <>
@@ -134,9 +157,9 @@ export default function Home() {
       <Container>
         <IntroArea>
           <StickyContainer>
-            <GridItemCard rotation="rb">
+            <HoverCard rotation="rb">
               <NameTag />
-            </GridItemCard>
+            </HoverCard>
           </StickyContainer>
         </IntroArea>
 
@@ -149,19 +172,64 @@ export default function Home() {
             to see some of my work.
           </LargeText>
           <LargeText>
-            I&lsquo;ve been working as a 🧑‍💻 <em>Web Developer</em> at{" "}
+            I&lsquo;m currently a 🧑‍💻 <em>Full Stack Web Developer</em> at{" "}
+            <Link href="https://characterstrong.com/" brand="characterstrong">
+              CharacterStrong <FontAwesomeIcon icon={faSquareArrowUpRight} />
+            </Link>{" "}
+            working to make the world a better place through education. I
+            started at CharacterStrong in{" "}
+            <MoreInfoText>
+              <TimeAgo date="April 1, 2022" />
+              April of 2022
+            </MoreInfoText>.
+          </LargeText>
+          <LargeText>
+            Previously, I worked as a <em>Senior Web Developer</em> at{" "}
             <Link href="https://noblestudios.com/" brand="noble">
               Noble Studios <FontAwesomeIcon icon={faSquareArrowUpRight} />
             </Link>{" "}
-            in Reno, NV since{" "}
+            in Reno, NV, where I started in{" "}
             <MoreInfoText>
               <TimeAgo date="May 1, 2018" />
               May of 2018
             </MoreInfoText>
-            . While at Noble, I&lsquo;ve{" "}
-            <strong>led frontend development</strong> for some seriously cool
-            websites.
+            . While at Noble, I <strong>led frontend development</strong> on
+            some really cool websites, a few of which are shown below.
           </LargeText>
+          <WorkSlider>
+            <div>
+              <SiteName>Tahoe South</SiteName>
+              <HoverCard bgColor="#00a99d">
+                <MiniPuter
+                  screenFileName="ltva"
+                  screenHeight={3608}
+                  alt="Tahoe South Site"
+                />
+              </HoverCard>
+            </div>
+
+            <div>
+              <SiteName>Travel Nevada</SiteName>
+              <HoverCard bgColor="#357387">
+                <MiniPuter
+                  screenFileName="tn"
+                  screenHeight={4088}
+                  alt="Travel Nevada Site"
+                />
+              </HoverCard>
+            </div>
+
+            <div>
+              <SiteName>Duncan Channon</SiteName>
+              <HoverCard bgColor="#f05050">
+                <MiniPuter
+                  screenFileName="dc"
+                  screenHeight={6919}
+                  alt="Duncan Channon Site"
+                />
+              </HoverCard>
+            </div>
+          </WorkSlider>
           <LargeText>
             I graduated in{" "}
             <MoreInfoText>
@@ -183,29 +251,6 @@ export default function Home() {
             </Link>
             .
           </LargeText>
-          <RecentWork>
-            <GridItemCard rotation="rb">
-              <MiniPuter
-                screenFileName="ltva"
-                screenHeight={3608}
-                alt="Tahoe South Site"
-              />
-            </GridItemCard>
-            <GridItemCard rotation="lb">
-              <MiniPuter
-                screenFileName="tn"
-                screenHeight={4088}
-                alt="Travel Nevada Site"
-              />
-            </GridItemCard>
-            <GridItemCard rotation="rb">
-              <MiniPuter
-                screenFileName="dc"
-                screenHeight={6919}
-                alt="Duncan Channon Site"
-              />
-            </GridItemCard>
-          </RecentWork>
         </ContentArea>
 
         {/* <div>

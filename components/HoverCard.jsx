@@ -10,19 +10,14 @@ const GridItemContainer = styled(animated.div)`
   aspect-ratio: 4 / 3;
   display: flex;
   justify-content: center;
-  grid-column: ${(props) => (props.columnStart ? props.columnStart : "auto")} /
-    ${(props) => (props.columnEnd ? props.columnEnd : "auto")};
-  grid-row: ${(props) => (props.rowStart ? props.rowStart : "auto")} /
-    ${(props) => (props.rowEnd ? props.rowEnd : "auto")};
   transform-style: preserve-3d;
   position: relative;
   cursor: pointer;
-  margin-bottom: 40px;
   width: 300px;
 
   &::before {
     content: "";
-    background: #e7e1cb;
+    background: ${(props) => props.bgColor ? props.bgColor : "#e7e1cb"};
     position: absolute;
     height: 100%;
     width: 100%;
@@ -38,7 +33,7 @@ const GridItemContainer = styled(animated.div)`
   }
 `;
 
-export default function GridItemCard(props) {
+export default function HoverCard(props) {
   const [xy, setXY] = useState([0, 0]);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -88,6 +83,8 @@ export default function GridItemCard(props) {
     y: yPercentageClamped,
   });
 
+  
+
   // Interpolate percentages to degrees of rotation
   const xInterpolated = x.to([0, 0.5, 1], [-30, 0, 30]);
   const yInterpolated = y.to([0, 0.5, 1], [30, 0, -30]);
@@ -102,6 +99,7 @@ export default function GridItemCard(props) {
       onMouseEnter={() => setIsHovering(true)}
       onMouseMove={({ clientX, clientY }) => setXY([clientX, clientY])}
       onMouseLeave={() => setIsHovering(false)}
+      bgColor={props.bgColor}
     >
       {props.children}
     </GridItemContainer>
