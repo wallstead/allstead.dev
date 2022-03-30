@@ -199,7 +199,7 @@ export default function Home() {
           <WorkSlider>
             <div>
               <SiteName>Tahoe South</SiteName>
-              <HoverCard bgColor="#00a99d">
+              <HoverCard bg="#00a99d">
                 <MiniPuter
                   screenFileName="ltva"
                   screenHeight={3608}
@@ -211,7 +211,7 @@ export default function Home() {
 
             <div>
               <SiteName>Travel Nevada</SiteName>
-              <HoverCard bgColor="#357387">
+              <HoverCard bg="#357387">
                 <MiniPuter
                   screenFileName="tn"
                   screenHeight={4088}
@@ -223,7 +223,7 @@ export default function Home() {
 
             <div>
               <SiteName>Duncan Channon</SiteName>
-              <HoverCard bgColor="#f05050">
+              <HoverCard bg="#f05050">
                 <MiniPuter
                   screenFileName="dc"
                   screenHeight={6919}

@@ -17,7 +17,7 @@ const GridItemContainer = styled(animated.div)`
 
   &::before {
     content: "";
-    background: ${(props) => props.bgColor ? props.bgColor : "#e7e1cb"};
+    background: ${(props) => props.bg ? props.bg : "#e7e1cb"};
     position: absolute;
     height: 100%;
     width: 100%;
@@ -99,7 +99,7 @@ export default function HoverCard(props) {
       onMouseEnter={() => setIsHovering(true)}
       onMouseMove={({ clientX, clientY }) => setXY([clientX, clientY])}
       onMouseLeave={() => setIsHovering(false)}
-      bgColor={props.bgColor}
+      bg={props.bg}
     >
       {props.children}
     </GridItemContainer>
